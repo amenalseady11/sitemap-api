@@ -9,132 +9,107 @@
 - ✅ توليد sitemaps منفصلة لكل متجر
 - ✅ متوافق مع معايير Google و XML Schema
 - ✅ دعم Supabase
-- ✅ خوادم Express.js للـ API
-- ✅ إنشاء ملفات XML ثابتة
+- ✅ Vercel Serverless Functions
 - ✅ تحسين الأداء مع الـ caching
+- ✅ معالجة الأخطاء مع fallback sitemaps
 
-## التثبيت
+## النشر السريع على Vercel
 
+### 1. النشر بنقرة واحدة
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/sitemap-generator)
+
+### 2. النشر اليدوي
 ```bash
-# انتقل إلى مجلد المشروع
+# استنساخ المشروع
+git clone https://github.com/your-username/sitemap-generator
 cd sitemap-generator
 
-# تثبيت المتطلبات
-npm install
+# تثبيت Vercel CLI
+npm install -g vercel
 
-# نسخ ملف البيئة
-cp .env.example .env
+# تسجيل الدخول
+vercel login
 
-# تحرير ملف البيئة
-nano .env
+# النشر
+vercel --prod
 ```
 
-## الإعداد
+### 3. إعداد متغيرات البيئة
+في Vercel Dashboard → Settings → Environment Variables:
 
-قم بتحرير ملف `.env` وأضف المعلومات التالية:
-
-```env
-# Supabase Configuration
-SUPABASE_URL=your_supabase_url_here
-SUPABASE_ANON_KEY=your_supabase_anon_key_here
-
-# Site Configuration
-SITE_URL=https://salla-ye.store
-PORT=3000
-```
+| Variable | Value |
+|----------|-------|
+| `SUPABASE_URL` | `https://your-project.supabase.co` |
+| `SUPABASE_ANON_KEY` | `your-anon-key-here` |
+| `SITE_URL` | `https://salla-ye.store` |
 
 ## الاستخدام
 
-### 1. تشغيل الخادم (Server Mode)
+بعد النشر، ستكون الروابط التالية متاحة:
 
-```bash
-# تشغيل الخادم
-npm start
-
-# أو للتطوير مع المراقبة
-npm run dev
-```
-
-الخادم سيعمل على `http://localhost:3000` مع الروابط التالية:
-
-- **Main Sitemap Index**: `/sitemap-main.xml`
-- **Site Sitemap**: `/sitemap.xml`
-- **Store Sitemap**: `/sitemap/store_{id}.xml`
-- **Health Check**: `/health`
-
-### 2. إنشاء ملفات XML ثابتة
-
-```bash
-# إنشاء جميع ملفات الـ sitemap
-npm run generate
-```
-
-سيتم إنشاء الملفات في مجلد `output/`:
-- `sitemap-main.xml` - الفهرس الرئيسي
-- `sitemap.xml` - صفحات الموقع الأساسية
-- `sitemap-store-{id}.xml` - خريطة كل متجر
-- `generation-summary.json` - ملخص العملية
-
-## هيكل الـ Sitemap
-
-### 1. Main Sitemap Index (`/sitemap-main.xml`)
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://salla-ye.store/sitemap.xml</loc>
-    <lastmod>2024-12-25</lastmod>
-  </sitemap>
-  <sitemap>
-    <loc>https://salla-ye.store/sitemap/store_123.xml</loc>
-    <lastmod>2024-12-25</lastmod>
-  </sitemap>
-</sitemapindex>
-```
-
-### 2. Site Sitemap (`/sitemap.xml`)
-يحتوي على:
-- الصفحة الرئيسية
-- صفحات ثابتة (login, register, pricing)
-- صفحات المتاجر الرئيسية
-
-### 3. Store Sitemaps (`/sitemap/store_{id}.xml`)
-يحتوي على:
-- صفحة المتجر الرئيسية
-- جميع منتجات المتجر النشطة
-
-## API Endpoints
-
-| Endpoint | الوصف |
-|----------|--------|
-| `GET /` | معلومات الـ API |
-| `GET /sitemap-main.xml` | الفهرس الرئيسي للـ sitemaps |
-| `GET /sitemap.xml` | sitemap الموقع الأساسي |
-| `GET /sitemap/store_{id}.xml` | sitemap متجر محدد |
-| `GET /health` | فحص حالة الخادم |
+- **Main Sitemap Index**: `https://your-app.vercel.app/sitemap-main.xml`
+- **Site Sitemap**: `https://your-app.vercel.app/sitemap.xml`
+- **Store Sitemap**: `https://your-app.vercel.app/sitemap/store_{id}.xml`
+- **Health Check**: `https://your-app.vercel.app/health`
 
 ## التكامل مع الموقع الرئيسي
 
-### 1. استخدام الخادم المنفصل
+### استخدام دومين فرعي:
+```
+sitemap.salla-ye.store → your-vercel-app.vercel.app
+```
 
-```javascript
-// في ملف vercel.json أو .htaccess
+### استخدام rewrites في الموقع الرئيسي:
+```json
 {
   "rewrites": [
     {
       "source": "/sitemap-main.xml",
-      "destination": "http://your-sitemap-server.com/sitemap-main.xml"
+      "destination": "https://your-sitemap-app.vercel.app/sitemap-main.xml"
     }
   ]
 }
 ```
 
-### 2. استخدام الملفات الثابتة
+## التطوير المحلي
 
 ```bash
-# نسخ الملفات المولدة إلى الموقع الرئيسي
-cp output/*.xml ../public/
+# تثبيت المتطلبات
+npm install
+
+# تشغيل محلي مع Vercel
+vercel dev
+
+# أو تشغيل Express server
+npm start
 ```
+
+## هيكل المشروع
+
+```
+sitemap-generator/
+├── api/                    # Vercel Serverless Functions
+│   ├── index.js           # معلومات API
+│   ├── health.js          # فحص الحالة
+│   ├── sitemap-main.js    # الفهرس الرئيسي
+│   ├── sitemap.js         # sitemap الموقع
+│   └── sitemap-store.js   # sitemap المتاجر
+├── lib/                   # مكتبات مشتركة
+│   └── sitemap-builder.js # محرك توليد XML
+├── vercel.json           # إعدادات Vercel
+├── package.json          # متطلبات المشروع
+└── README.md            # هذا الملف
+```
+
+## API Endpoints
+
+| Endpoint | الوصف | Cache |
+|----------|--------|-------|
+| `GET /` | معلومات الـ API | - |
+| `GET /health` | فحص حالة الخدمة | - |
+| `GET /sitemap-main.xml` | الفهرس الرئيسي للـ sitemaps | 1 hour |
+| `GET /sitemap.xml` | sitemap الموقع الأساسي | 1 hour |
+| `GET /sitemap/store_{id}.xml` | sitemap متجر محدد | 30 min |
 
 ## Google Search Console
 
@@ -145,40 +120,55 @@ cp output/*.xml ../public/
 
 ## المراقبة والصيانة
 
-### فحص الأخطاء
+### مراقبة الأداء:
 ```bash
-# فحص حالة الخادم
-curl http://localhost:3000/health
+# عرض logs
+vercel logs --follow
 
-# فحص sitemap معين
-curl http://localhost:3000/sitemap.xml
+# مراقبة function معين
+vercel logs --function=api/sitemap-main
 ```
 
-### التحديث التلقائي
-يمكنك إعداد cron job لتحديث الـ sitemaps دورياً:
-
+### تحديث الكود:
 ```bash
-# كل ساعة
-0 * * * * cd /path/to/sitemap-generator && npm run generate
-
-# كل يوم في الساعة 2 صباحاً
-0 2 * * * cd /path/to/sitemap-generator && npm run generate
+# تحديث وإعادة نشر
+git push origin main
+# أو
+vercel --prod
 ```
 
 ## استكشاف الأخطاء
 
-### خطأ في الاتصال بـ Supabase
+### خطأ في الاتصال بـ Supabase:
 - تأكد من صحة `SUPABASE_URL` و `SUPABASE_ANON_KEY`
 - تأكد من أن الجداول موجودة: `stores`, `products`
 
-### خطأ في تنسيق XML
-- تأكد من أن البيانات لا تحتوي على رموز XML خاصة
-- الأداة تقوم بـ escape تلقائي للرموز الخاصة
+### خطأ في Environment Variables:
+```bash
+vercel env ls
+vercel env add VARIABLE_NAME
+```
 
-### مشاكل الأداء
-- استخدم الـ caching في الخادم
-- قم بتحديد حد أقصى لعدد المنتجات في كل sitemap (50,000 URL)
+### مشاكل الأداء:
+- Vercel تقوم بـ caching تلقائي
+- Functions تبقى warm لمدة 5 دقائق
+- استخدم connection pooling في Supabase
+
+## الحدود والقيود
+
+### Vercel Free Plan:
+- 100GB bandwidth/month
+- 100GB-hours function executions/month
+- 10 second function timeout
+
+### تحسينات للإنتاج:
+- استخدم Vercel Pro للحصول على حدود أعلى
+- تحسين queries لتقليل وقت التنفيذ
+- استخدام caching strategies
 
 ## الدعم
 
-للمساعدة أو الإبلاغ عن مشاكل، يرجى إنشاء issue في المستودع.# sitemap-api
+للمساعدة أو الإبلاغ عن مشاكل:
+- [Vercel Documentation](https://vercel.com/docs)
+- [Supabase Documentation](https://supabase.com/docs)
+- إنشاء issue في المستودع# sitemap-api
