@@ -3,7 +3,6 @@
 ## 🔧 إصلاح مشكلة @supabase/supabase-js
 
 تم إنشاء نسخة CommonJS من API function لحل مشكلة ES modules مع Vercel.
-تم إزالة `dotenv` لتحسين التوافق مع Vercel.
 
 ## 1. الإعداد السريع
 
@@ -13,9 +12,6 @@ npm install -g vercel
 
 # اختبار النسخة الجديدة
 node test-cjs.cjs
-
-# اختبار متغيرات البيئة
-npm run validate-env
 
 # تسجيل الدخول
 vercel login

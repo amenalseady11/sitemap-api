@@ -15,12 +15,13 @@
     "test-vercel": "node test-vercel.js",
     "test-cjs": "node test-cjs.cjs",
     "demo": "node demo.js",
-    "validate-env": "node -e \"console.log('Environment variables:'); console.log('SUPABASE_URL:', process.env.SUPABASE_URL ? 'Set' : 'Missing'); console.log('SUPABASE_ANON_KEY:', process.env.SUPABASE_ANON_KEY ? 'Set' : 'Missing'); console.log('SITE_URL:', process.env.SITE_URL || 'Using default');\"",
+    "validate": "node -e \"import('./config.js').then(({validateConfig}) => validateConfig())\"",
     "clean": "rm -rf output/*.xml output/*.json",
     "install-vercel": "npm install -g vercel"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2"
   },
   "devDependencies": {

@@ -1,30 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-
-// Configuration
-const config = {
-  siteUrl: process.env.SITE_URL || 'https://salla-ye.store',
-  changefreq: {
-    homepage: 'daily',
-    stores: 'weekly', 
-    products: 'daily',
-    categories: 'weekly'
-  },
-  priority: {
-    homepage: '1.0',
-    stores: '0.8',
-    products: '0.6',
-    categories: '0.7'
-  }
-};
-
-// Initialize Supabase client only if credentials are available
-let supabase = null;
-if (process.env.SUPABASE_URL && process.env.SUPABASE_ANON_KEY) {
-  supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_ANON_KEY
-  );
-}
+import { supabase, config } from './config.js';
 
 export class SitemapBuilder {
   constructor() {

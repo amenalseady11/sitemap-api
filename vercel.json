@@ -1,13 +1,6 @@
 {
   "version": 2, 
-  "name": "salla-sitemap-generator",
-  "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "rewrites": [ 
+  "rewrites": [
     {
       "source": "/sitemap.xml",
       "destination": "/api/sitemap-cjs.xml"
@@ -18,7 +11,7 @@
     },
     {
       "source": "/sitemap/store_([^/]+).xml",
-      "destination": "/api/sitemap-store?storeId=$1" 
+      "destination": "/api/sitemap-store?storeId=$1"
     },
     {
       "source": "/health",
@@ -29,10 +22,23 @@
       "destination": "/api/index"
     }
   ],
-  
+  "functions": {
+    "api/sitemap-main.js": {
+      "maxDuration": 30
+    },
+    "api/sitemap.js": {
+      "maxDuration": 30
+    },
+    "api/sitemap.xml.js": {
+      "maxDuration": 30
+    },
+    "api/sitemap-store.js": {
+      "maxDuration": 20
+    }
+  },
   "env": {
-    "SUPABASE_URL": "@supabase_url",
-    "SUPABASE_ANON_KEY": "@supabase_anon_key",
-    "SITE_URL": "https://sitemap.salla-ye.store"
+    "SUPABASE_URL": "https://iqefgmbtdhjaedwrcxez.supabase.co",
+    "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxZWZnbWJ0ZGhqYWVkd3JjeGV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU1NTcxNTYsImV4cCI6MjA4MTEzMzE1Nn0.a82BeVLqZAG0qh-edo8cyWtfU6jLDC5aWsVE9aLCtJU",
+    "SITE_URL": "https://sitemap.salla-ye.store" 
   }
 }
