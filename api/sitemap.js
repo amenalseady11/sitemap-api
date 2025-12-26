@@ -54,7 +54,7 @@
 //   }
 // }
 
-import { supabase, config } from './config.js';
+import { supabase, config } from '../config.js';
 
 export default async function handler(req, res) {
   const { data } = await supabase.from('products').select('*');
