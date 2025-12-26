@@ -1,4 +1,3 @@
-// api/sitemap.xml.js
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -9,7 +8,6 @@ const supabase = createClient(
 export default async function handler(req, res) {
   try {
     const { data: products } = await supabase.from("products").select("slug");
-
     const SITE_URL = process.env.SITE_URL || "https://salla-ye.store";
 
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -27,8 +25,8 @@ export default async function handler(req, res) {
 
     res.setHeader("Content-Type", "application/xml");
     res.status(200).send(xml);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     res.status(500).send("Internal Server Error");
   }
 }
