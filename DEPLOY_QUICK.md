@@ -1,4 +1,8 @@
-# النشر السريع على Vercel
+# النشر السريع على Vercel - محدث
+
+## 🔧 إصلاح مشكلة @supabase/supabase-js
+
+تم إنشاء نسخة CommonJS من API function لحل مشكلة ES modules مع Vercel.
 
 ## 1. الإعداد السريع
 
@@ -6,8 +10,8 @@
 # تثبيت Vercel CLI
 npm install -g vercel
 
-# اختبار الإعداد
-npm run test-vercel
+# اختبار النسخة الجديدة
+node test-cjs.cjs
 
 # تسجيل الدخول
 vercel login
@@ -76,6 +80,24 @@ curl https://your-app.vercel.app/sitemap-main.xml
 ## 7. Google Search Console
 
 أضف الرابط: `https://salla-ye.store/sitemap-main.xml`
+
+## 🐛 استكشاف الأخطاء
+
+### خطأ "Cannot find module '@supabase/supabase-js'":
+- ✅ تم حل هذه المشكلة بإنشاء نسخة CommonJS
+- الآن يستخدم `/sitemap.xml` → `/api/sitemap-cjs.xml`
+
+### خطأ في Environment Variables:
+```bash
+vercel env ls
+vercel env add SUPABASE_URL
+```
+
+### اختبار محلي:
+```bash
+vercel dev
+# ثم اختبر: http://localhost:3000/sitemap.xml
+```
 
 ---
 
