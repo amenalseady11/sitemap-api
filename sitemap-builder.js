@@ -56,7 +56,7 @@ export class SitemapBuilder {
     try {
       const { data, error } = await supabase
         .from('stores')
-        .select('id, store_name, updated_at, created_at')
+        .select('id, name, updatedAt, createdAt')
         .eq('is_active', true)
         .order('updated_at', { ascending: false });
 
@@ -216,7 +216,7 @@ export class SitemapBuilder {
       console.log(`📊 Found ${stores.length} active stores`);
 
       for (const store of stores) {
-        console.log(`📄 Generating sitemap for store: ${store.store_name} (ID: ${store.id})`);
+        console.log(`📄 Generating sitemap for store: ${store.name} (ID: ${store.id})`);
         results.storeSitemaps[store.id] = await this.generateStoreSitemap(store.id);
       }
 

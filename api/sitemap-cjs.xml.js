@@ -87,7 +87,7 @@ class SitemapBuilder {
 
       const { data, error } = await supabase
         .from('stores')
-        .select('id, store_name, updated_at, created_at')
+        .select('id, name, updatedAt, createdAt')
         .eq('is_active', true)
         .order('updated_at', { ascending: false });
 
