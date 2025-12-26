@@ -1,14 +1,22 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { SitemapBuilder } from './sitemap-builder.js';
-import { validateConfig } from './config.js';
 
 async function generateSitemapFiles() {
   try {
     console.log('🚀 Starting sitemap file generation...');
     
-    // Validate configuration
-    validateConfig();
+    // Validate environment variables
+    const required = ['SUPABASE_URL', 'SUPABASE_ANON_KEY'];
+    const missing = required.filter(key => !process.env[key]);
+    
+    if (missing.length > 0) {
+      console.error(`❌ Missing required environment variables: ${missing.join(', ')}`);
+      console.log('Please set these environment variables before generating sitemaps');
+      process.exit(1);
+    }
+    
+    console.log('✅ Environment variables validated');
     
     // Create output directory
     const outputDir = './output';

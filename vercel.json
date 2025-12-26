@@ -1,0 +1,38 @@
+{
+  "version": 2, 
+  "name": "salla-sitemap-generator",
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap-cjs.xml"
+    },
+    {
+      "source": "/sitemap-main.xml",
+      "destination": "/api/sitemap-main"
+    },
+    {
+      "source": "/sitemap/store_([^/]+).xml",
+      "destination": "/api/sitemap-store?storeId=$1"
+    },
+    {
+      "source": "/health",
+      "destination": "/api/health"
+    },
+    {
+      "source": "/",
+      "destination": "/api/index"
+    }
+  ],
+  
+  "env": {
+    "SUPABASE_URL": "@supabase_url",
+    "SUPABASE_ANON_KEY": "@supabase_anon_key",
+    "SITE_URL": "https://sitemap.salla-ye.store"
+  }
+}

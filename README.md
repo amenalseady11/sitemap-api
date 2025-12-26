@@ -43,6 +43,8 @@ vercel --prod
 | `SUPABASE_ANON_KEY` | `your-anon-key-here` |
 | `SITE_URL` | `https://salla-ye.store` |
 
+**ملاحظة**: لا حاجة لـ dotenv - تم إزالته لتحسين التوافق مع Vercel.
+
 ## الاستخدام
 
 بعد النشر، ستكون الروابط التالية متاحة:

@@ -1,9 +1,14 @@
 import express from 'express';
 import { SitemapBuilder } from './sitemap-builder.js';
-import { config, validateConfig } from './config.js';
 
 const app = express();
 const sitemapBuilder = new SitemapBuilder();
+
+// Configuration
+const config = {
+  siteUrl: process.env.SITE_URL || 'https://salla-ye.store',
+  port: process.env.PORT || 3000
+};
 
 // Middleware
 app.use(express.json());
@@ -99,8 +104,17 @@ app.use((req, res) => {
 // Start server
 async function startServer() {
   try {
-    // Validate configuration
-    validateConfig();
+    // Validate environment variables
+    const required = ['SUPABASE_URL', 'SUPABASE_ANON_KEY'];
+    const missing = required.filter(key => !process.env[key]);
+    
+    if (missing.length > 0) {
+      console.error(`❌ Missing required environment variables: ${missing.join(', ')}`);
+      console.log('Please set these environment variables before starting the server');
+      process.exit(1);
+    }
+    
+    console.log('✅ Environment variables validated');
     
     // Start server
     app.listen(config.port, () => {

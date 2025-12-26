@@ -1,0 +1,45 @@
+{
+  "name": "salla-sitemap-generator",
+  "version": "1.0.0",
+  "description": "Sitemap generator for Salla-YE store platform - Vercel deployment",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "vercel dev",
+    "build": "echo 'No build step required for Vercel'",
+    "deploy": "vercel --prod",
+    "deploy-preview": "vercel",
+    "generate": "node generate-sitemap.js",
+    "test": "node test.js",
+    "test-vercel": "node test-vercel.js",
+    "test-cjs": "node test-cjs.cjs",
+    "demo": "node demo.js",
+    "validate-env": "node -e \"console.log('Environment variables:'); console.log('SUPABASE_URL:', process.env.SUPABASE_URL ? 'Set' : 'Missing'); console.log('SUPABASE_ANON_KEY:', process.env.SUPABASE_ANON_KEY ? 'Set' : 'Missing'); console.log('SITE_URL:', process.env.SITE_URL || 'Using default');\"",
+    "clean": "rm -rf output/*.xml output/*.json",
+    "install-vercel": "npm install -g vercel"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.2.29",
+    "encoding": "^0.1.13",
+    "vercel": "^32.7.2"
+  },
+  "keywords": [
+    "sitemap",
+    "seo",
+    "google",
+    "salla",
+    "xml",
+    "supabase",
+    "vercel"
+  ],
+  "author": "Salla-YE",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,5 +1,4 @@
 import { SitemapBuilder } from './sitemap-builder.js';
-import { config } from './config.js';
 
 async function testSitemapGeneration() {
   console.log('🧪 Testing Sitemap Generation...\n');
@@ -29,11 +28,13 @@ async function testSitemapGeneration() {
     const escaped = builder.escapeXml('Test & <Company> "Name"');
     console.log(`✅ XML escaped: ${escaped}`);
     
-    // Test configuration
-    console.log('\n5. Testing configuration...');
-    console.log(`   Site URL: ${config.siteUrl}`);
-    console.log(`   Port: ${config.port}`);
-    console.log('✅ Configuration loaded');
+    // Test environment variables
+    console.log('\n5. Testing environment variables...');
+    const siteUrl = process.env.SITE_URL || 'https://salla-ye.store';
+    const port = process.env.PORT || 3000;
+    console.log(`   Site URL: ${siteUrl}`);
+    console.log(`   Port: ${port}`);
+    console.log('✅ Environment variables loaded');
     
     console.log('\n🎉 All tests passed! The sitemap generator is ready to use.');
     console.log('\nNext steps:');

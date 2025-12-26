@@ -1,8 +1,4 @@
 // Test script for Vercel deployment
-import dotenv from 'dotenv';
-
-// Load environment variables
-dotenv.config();
 
 async function testVercelFunctions() {
   console.log('🧪 Testing Vercel Functions Setup...\n');

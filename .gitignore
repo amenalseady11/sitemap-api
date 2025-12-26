@@ -12,9 +12,9 @@ yarn-error.log*
 .env.production.local
 
 # Output files
-output/
-*.xml
-*.json
+# output/
+# *.xml
+# *.json
 
 # Logs
 logs

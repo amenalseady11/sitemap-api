@@ -14,7 +14,10 @@ Did you forget to add it to "dependencies" in `package.json`?
 ### 1. إنشاء نسخة CommonJS
 تم إنشاء `api/sitemap-cjs.xml.js` باستخدام `require()` بدلاً من `import`.
 
-### 2. تحديث vercel.json
+### 2. إزالة dotenv
+تم إزالة `dotenv` من المشروع لأن Vercel يدير متغيرات البيئة تلقائياً.
+
+### 3. تحديث vercel.json
 ```json
 {
   "rewrites": [
@@ -26,10 +29,13 @@ Did you forget to add it to "dependencies" in `package.json`?
 }
 ```
 
-### 3. اختبار الحل
+### 4. اختبار الحل
 ```bash
 # اختبار النسخة الجديدة
 npm run test-cjs
+
+# اختبار متغيرات البيئة
+npm run validate-env
 
 # النشر
 vercel --prod
@@ -39,7 +45,10 @@ vercel --prod
 
 - ✅ `api/sitemap-cjs.xml.js` - نسخة CommonJS تعمل مع Vercel
 - ✅ `vercel.json` - محدث لاستخدام النسخة الجديدة
+- ✅ `package.json` - إزالة dotenv وإضافة validate-env
 - ✅ `test-cjs.cjs` - اختبار النسخة الجديدة
+- ✅ `.env.example` - محدث مع تعليقات حول عدم استخدام dotenv
+- ❌ `config.js` - تم حذفه (لم يعد مطلوباً)
 - ✅ `DEPLOY_QUICK.md` - دليل محدث
 
 ## التحقق من النجاح
