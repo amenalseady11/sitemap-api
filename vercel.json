@@ -18,7 +18,7 @@
     },
     {
       "source": "/sitemap/store_([^/]+).xml",
-      "destination": "/api/sitemap-store?storeId=$1"
+      "destination": "/api/sitemap-store?storeId=$1" 
     },
     {
       "source": "/health",
