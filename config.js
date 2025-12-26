@@ -5,7 +5,7 @@ dotenv.config();
 
 // Site configuration
 export const config = {
-  siteUrl: process.env.SITE_URL || 'https://salla-ye.store',
+  siteUrl: process.env.SITE_URL || 'https://salla-ye.store', 
   port: process.env.PORT || 3000,
   
   // Sitemap settings
