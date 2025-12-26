@@ -7,7 +7,7 @@
       "use": "@vercel/node"
     }
   ],
-  "rewrites": [
+  "rewrites": [ 
     {
       "source": "/sitemap.xml",
       "destination": "/api/sitemap-cjs.xml"
