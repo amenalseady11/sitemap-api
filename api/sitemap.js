@@ -54,12 +54,7 @@
 //   }
 // }
 
-const { createClient } = require("@supabase/supabase-js");
-
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
+import { supabase, config } from './config.js';
 
 export default async function handler(req, res) {
   const { data } = await supabase.from('products').select('*');
