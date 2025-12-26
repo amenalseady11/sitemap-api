@@ -22,7 +22,7 @@
     },
     {
       "source": "/health",
-      "destination": "/api/health"
+      "destination": "/api/health" 
     },
     {
       "source": "/",
