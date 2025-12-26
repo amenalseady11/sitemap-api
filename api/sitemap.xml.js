@@ -1,14 +1,34 @@
+// api/sitemap.xml.js
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
+);
+
 export default async function handler(req, res) {
-  const SITE_URL = "https://salla-ye.store";
+  try {
+    const { data: products } = await supabase.from("products").select("slug");
 
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    const SITE_URL = process.env.SITE_URL || "https://salla-ye.store";
+
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+
+    products.forEach((p) => {
+      xml += `
   <url>
-    <loc>${SITE_URL}</loc>
-    <priority>1.0</priority>
-  </url>
-</urlset>`;
+    <loc>${SITE_URL}/product/${p.slug}</loc>
+    <priority>0.7</priority>
+  </url>`;
+    });
 
-  res.setHeader("Content-Type", "application/xml");
-  res.status(200).send(xml);
+    xml += "\n</urlset>";
+
+    res.setHeader("Content-Type", "application/xml");
+    res.status(200).send(xml);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 }
